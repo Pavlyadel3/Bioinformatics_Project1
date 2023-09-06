@@ -1,0 +1,73 @@
+dictionary = {}
+with open("weight.txt") as file:
+    for line in file:
+        (key, value) = line.split()
+        dictionary[int(key)] = value
+print(dictionary)
+
+
+def initial_list(dictionary, spectrum):
+    initallist = []
+    for i in spectrum:
+        for key, value in dictionary.items():
+            if i == key and key < 186:
+                initallist.append(value)
+    print(initallist)
+    return initallist
+
+
+def counted_letters(spectrum):
+    c = {}
+    for i in spectrum:
+        c[i] = spectrum.count(i)
+    return c
+
+
+def linear_spectrum(sub_peptide, dict):
+    total = []
+    weight = 0
+    for i in sub_peptide:  # pp
+        for key, value in dict.items():
+            if i == value:
+                total.append(key)  # p=97,p=97
+                weight += key
+    total.append(weight)  # pp=194
+    return total
+
+
+def is_consistent(spectrum, sub_peptide):
+    values = linear_spectrum(sub_peptide, dictionary)
+    found = False
+    counts = counted_letters(spectrum)
+    counter = 0
+    for i in values:  # 97 #97 #194
+        for j in range(len(spectrum)):
+            if i == spectrum[j]:  # 97 found
+                for key, value in counts.items():
+                    if i == key:  # 97==97
+                        counter -= 1
+                        if counter <= value:  # counter <= number of occurrence of weight
+                            found = True
+
+    return found
+
+
+def recursion_fun(initlist, input_list, output_comblist):
+    for k in range(len(input_list) - 1):
+        for i in input_list:
+            for j in initlist:
+                peptide = i + j
+                found = is_consistent(spectrum, peptide)
+                if (found == True) and output_comblist.count(peptide) == 0:
+                    output_comblist.append(peptide)
+        input_list = output_comblist.copy()
+        output_comblist.clear()
+    return input_list
+
+
+# Main
+spectrum = [int(x) for x in input().split()]
+list = initial_list(dictionary, spectrum)
+combination_list = []
+r = recursion_fun(list, list, combination_list)
+print(r)

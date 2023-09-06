@@ -1,0 +1,29 @@
+
+Linear_spectrum (sub_peptide){ //convert sub_peptide to weight
+
+return total (total weights of combinations) pv : sub p : v : pv:
+
+}
+ 
+
+IS_CONSISITEN(sub_peptide,linear_spectrum){
+
+linear_vlaue=Linear_spectrum (sub_peptide)
+
+found =false
+for i in linear_value:
+for j in range (len linear_spectrum):
+//call counted_sort to calculate occuernce of sub_peptide
+found=true 
+return found
+}
+
+
+
+resursion(){
+// call is_consisitent function 
+join =i+j//pass to is_consistent function
+//check if it not exsist before 
+//append to list 
+return list 
+}
